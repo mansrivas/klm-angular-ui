@@ -71,13 +71,13 @@ export class AppComponent implements OnInit {
 
   loadAirportLazy(event) {
     let page = (event['first'] / 25) + 1;
-    this._http.getDataWithParam(`${HttpMethods.LIST_ALL_AIRPORTS_WITH_CONDITION}`, new HttpParams().set("term", this.pageFilterTerm).set("page", page + "")).toPromise().then(_ => {
+    this._http.getDataWithParam(`${HttpMethods.LIST_ALL_AIRPORTS}`, new HttpParams().set("term", this.pageFilterTerm).set("page", page + "")).toPromise().then(_ => {
       this.values = _['_embedded']['locations'];
     });
   }
 
   loadAirportFilter(event) {
-    this._http.getDataWithParam(`${HttpMethods.LIST_ALL_AIRPORTS}/${event}`).toPromise()
+    this._http.getDataWithParam(`${HttpMethods.LIST_ALL_AIRPORTS}`, new HttpParams().set("term", event).set("page", "")).toPromise()
       .then((_) => {
         this.values = _['_embedded']['locations'];
         this.totalRecords = _['page']['totalElements'];

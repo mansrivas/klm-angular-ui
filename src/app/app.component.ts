@@ -53,8 +53,7 @@ export class AppComponent implements OnInit {
 
   filteredObjByValue(event) {
     let query = event.query;
-
-    this._http.getDataWithParam(`${HttpMethods.LIST_ALL_AIRPORTS}/${query}`).toPromise()
+    this._http.getDataWithParam(`${HttpMethods.LIST_ALL_AIRPORTS}`, new HttpParams().set("term", query).set("page", "")).toPromise()
       .then((_) => {
         this.filteredObj = _['_embedded']['locations'];
       })
